@@ -1,11 +1,19 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import type { VulnerabilityReport, SuspiciousSnippet } from '../types';
 
-if (!process.env.API_KEY) {
-    console.error("API_KEY environment variable not set.");
-}
+let ai: GoogleGenAI | null = null;
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY! });
+const getAI = () => {
+    if (!ai) {
+        const apiKey = process.env.API_KEY || process.env.GEMINI_API_KEY;
+        if (!apiKey) {
+            console.error("API_KEY environment variable not set.");
+            return null;
+        }
+        ai = new GoogleGenAI({ apiKey });
+    }
+    return ai;
+};
 
 const vulnerabilitySchema = {
     type: Type.OBJECT,
@@ -165,7 +173,13 @@ const cleanJson = (text: string): string => {
 export const analyzeCodeSnippets = async (snippets: SuspiciousSnippet[]): Promise<VulnerabilityReport[]> => {
     const analysisPromises = snippets.map(async (snippet) => {
         try {
-            const response = await ai.models.generateContent({
+            const aiInstance = getAI();
+            if (!aiInstance) {
+                console.error("GoogleGenAI instance not initialized. Missing API Key.");
+                return null;
+            }
+
+            const response = await aiInstance.models.generateContent({
                 model: 'gemini-2.5-flash',
                 contents: getAnalysisPrompt(snippet.code, snippet.url),
                 config: {
