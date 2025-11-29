@@ -1,20 +1,53 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# ASTRA
 
-# Run and deploy your AI Studio app
+**AI-Driven Threat Reconnaissance Agent**
 
-This contains everything you need to run your app locally.
+ASTRA is an advanced security assessment tool designed to identify vulnerabilities in web applications. By leveraging state-of-the-art artificial intelligence, ASTRA performs deep analysis of web assets to detect potential security risks, providing developers and security researchers with actionable insights.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1Ca-zXLmx5SeUrB22ukhI-1B7Tvtz5d1_
+## Features
 
-## Run Locally
+- **Intelligent Scanning**: Automated reconnaissance and vulnerability detection.
+- **Comprehensive Reporting**: Detailed security reports with severity classification (Critical, High, Medium, Low).
+- **Actionable Insights**: Clear reproduction steps and remediation guidance for every finding.
+- **Modern Interface**: A sleek, responsive dashboard for managing and analyzing security assessments.
 
-**Prerequisites:**  Node.js
+## Getting Started
 
+### Prerequisites
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+- Node.js (Latest LTS recommended)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/LavSarkari/astra.git
+   ```
+
+2. Navigate to the project directory:
+   ```bash
+   cd astra
+   ```
+
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+## Usage
+
+Enter the target URL in the dashboard to initiate a scan. ASTRA will analyze the target and present a detailed vulnerability report.
+
+## Disclaimer
+
+This tool is intended for educational and authorized security testing purposes only. The developers assume no liability and are not responsible for any misuse or damage caused by this program. Please ensure you have explicit permission before scanning any target.
+
+---
+
+*Powered by Advanced Heuristics and Machine Learning*
