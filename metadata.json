@@ -1,0 +1,5 @@
+{
+  "name": "ASTRA: AI-Driven Threat Reconnaissance Agent",
+  "description": "A React-based web application for cybersecurity professionals to analyze JavaScript code for vulnerabilities using a heuristic pre-filter and the Gemini API for deep semantic analysis.",
+  "requestFramePermissions": []
+}

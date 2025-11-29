@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASTRA - AI Threat Reconnaissance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-dark': '#050505',       // Deepest black
+                        'brand-gray': '#121212',       // Dark gray surface
+                        'brand-light-gray': '#2A2A2A', // Lighter gray border/accent
+                        'brand-blue': '#FFFFFF',       // Changed to White for primary actions
+                        'brand-cyan': '#E5E5E5',       // Changed to Light Gray for accents
+                        'brand-green': '#56D364',      // Kept for Low Severity/Success
+                        'brand-yellow': '#D29922',     // Kept for Medium Severity
+                        'brand-orange': '#FB923C',     // Kept for High Severity
+                        'brand-red': '#F85149',        // Kept for Critical Severity
+                    }
+                }
+            }
+        }
+    </script>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.25.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-brand-dark text-gray-300 font-sans">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
