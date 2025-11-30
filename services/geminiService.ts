@@ -32,8 +32,10 @@ export const validateApiKey = async (key?: string): Promise<boolean> => {
         const aiInstance = getAI(key);
         if (!aiInstance) return false;
 
-        const model = aiInstance.getGenerativeModel({ model: "gemini-2.0-flash" });
-        await model.generateContent("Test");
+        await aiInstance.models.generateContent({
+            model: "gemini-2.0-flash",
+            contents: "Test"
+        });
         return true;
     } catch (error) {
         // Safe logging without revealing the full key
@@ -209,7 +211,7 @@ export const analyzeCodeSnippets = async (snippets: SuspiciousSnippet[]): Promis
             }
 
             const response = await aiInstance.models.generateContent({
-                model: 'gemini-2.5-flash',
+                model: 'gemini-1.5-flash',
                 contents: getAnalysisPrompt(snippet.code, snippet.url),
                 config: {
                     responseMimeType: 'application/json',
