@@ -2,17 +2,46 @@ import { GoogleGenAI, Type } from "@google/genai";
 import type { VulnerabilityReport, SuspiciousSnippet } from '../types';
 
 let ai: GoogleGenAI | null = null;
+let currentApiKey: string | null = null;
 
-const getAI = () => {
-    if (!ai) {
-        const apiKey = process.env.API_KEY || process.env.GEMINI_API_KEY;
-        if (!apiKey) {
-            console.error("API_KEY environment variable not set.");
-            return null;
-        }
+export const resetAI = () => {
+    ai = null;
+    currentApiKey = null;
+};
+
+const getAI = (customKey?: string) => {
+    // Priority: Custom Key > LocalStorage > Env Var
+    const storedKey = typeof window !== 'undefined' ? localStorage.getItem('astra_gemini_api_key') : null;
+    const apiKey = customKey || storedKey || process.env.API_KEY || process.env.GEMINI_API_KEY;
+
+    if (!apiKey) {
+        console.error("API_KEY not found in Env, LocalStorage, or Custom input.");
+        return null;
+    }
+
+    // Re-initialize if key changed or instance missing
+    if (!ai || currentApiKey !== apiKey) {
         ai = new GoogleGenAI({ apiKey });
+        currentApiKey = apiKey;
     }
     return ai;
+};
+
+export const validateApiKey = async (key?: string): Promise<boolean> => {
+    try {
+        const aiInstance = getAI(key);
+        if (!aiInstance) return false;
+
+        const model = aiInstance.getGenerativeModel({ model: "gemini-2.0-flash" });
+        await model.generateContent("Test");
+        return true;
+    } catch (error) {
+        // Safe logging without revealing the full key
+        const usedKey = currentApiKey || "unknown";
+        const maskedKey = usedKey.length > 8 ? `${usedKey.substring(0, 4)}...${usedKey.substring(usedKey.length - 4)}` : "INVALID";
+        console.error(`API Key Validation Failed for key (${maskedKey}):`, error);
+        return false;
+    }
 };
 
 const vulnerabilitySchema = {
