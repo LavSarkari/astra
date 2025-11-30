@@ -33,7 +33,7 @@ export const validateApiKey = async (key?: string): Promise<boolean> => {
         if (!aiInstance) return false;
 
         await aiInstance.models.generateContent({
-            model: "gemini-2.0-flash",
+            model: "gemini-1.5-flash-001",
             contents: "Test"
         });
         return true;
@@ -211,7 +211,7 @@ export const analyzeCodeSnippets = async (snippets: SuspiciousSnippet[]): Promis
             }
 
             const response = await aiInstance.models.generateContent({
-                model: 'gemini-1.5-flash',
+                model: 'gemini-1.5-flash-001',
                 contents: getAnalysisPrompt(snippet.code, snippet.url),
                 config: {
                     responseMimeType: 'application/json',
